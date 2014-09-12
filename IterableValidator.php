@@ -85,7 +85,7 @@ class ValidationIterator extends Validator {
      */
     protected function iterateNestedRuleSet($attribute, $rules)
     {
-        $nestedRuleSet = isset($rules['iterate']['ruleSet']) ? $rules['iterate']['ruleSet'] : [];
+        $nestedRuleSet = isset($rules['iterate']['rules']) ? $rules['iterate']['rules'] : [];
         $nestedMessages = isset($rules['iterate']['messages']) ? $rules['iterate']['messages'] : [];
 
         $this->iterate($attribute, $nestedRuleSet, $nestedMessages);

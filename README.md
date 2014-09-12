@@ -51,7 +51,7 @@ You can also "nest" iterable fields inside the books field. Say you wanted to va
         'citations' => [
             'array', // assuming we always want the citations to come through as an array
             'iterate' => [
-                'ruleSet' => [
+                'rules' => [
                     // use "required_with_parent" so that this field is only required when
                     // an array entry for it actually exists - this is more or less
                     // a new rule that comes with this class
