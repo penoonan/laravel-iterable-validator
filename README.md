@@ -1,8 +1,6 @@
 Laravel Iterable Validator
 ==========================
 
-Extends Laravel's default validation class to allow you to recursively iterate through indexed array input
-
 This adds an "iterate" method to Laravel's default validator. Say you're expecting input with an array of books:
 
 ```php
