@@ -16,7 +16,7 @@ class ValidationIterator extends Validator {
 
         $input = array_get($payload, $attribute);
 
-        if (!is_array($input)) {
+        if (!is_null($input) && !is_array($input)) {
             throw new \InvalidArgumentException('Attribute for iterate() must be an array.');
         }
 
