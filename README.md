@@ -43,7 +43,7 @@ You want the author and title to be required for each book, as well as the custo
     }
 ```
 
-You can also "nest" iterable fields inside the books field. Say you wanted to validate "citations" for each book, and each citation has an "author" field  which is required. The rules for citations must be in the form of an array, and the iterable rules and messages that apply to each individual citation must be under the key 'iterate', like so:
+You can also "nest" iterable fields inside the books field. Say you wanted to validate an unknown number of "citations" for each book, and each citation has an "author" field  which is required. The rules for citations must be in the form of an array, and the iterable rules and messages that apply to each individual citation must be under the key 'iterate', like so:
 
 ```php
     <?php
