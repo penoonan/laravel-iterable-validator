@@ -13,19 +13,22 @@ class ValidationIterator extends Validator {
     public function iterate($attribute, array $ruleSet = [], $messages = [])
     {
         $payload = array_merge($this->data, $this->files);
-
         $input = array_get($payload, $attribute);
 
-        if (!is_null($input) && !is_array($input)) {
+        if (!is_null($input) && !is_array($input))
+        {
             throw new \InvalidArgumentException('Attribute for iterate() must be an array.');
         }
 
-        if (!$entries = count($input)) {
-            return; // Whatever you're trying to iterate, the payload doesn't have any
+        if (!$entries = count($input))
+        {
+            //Whatever you're trying to iterate, the payload didn't have any
+            return;
         }
 
-        for ($i = 0; $i < $entries; $i++) {
-            $this->addArrayValidationRules($attribute.'.'.$i.'.', $ruleSet, $messages);
+        for ($i = 0; $i < $entries; $i++)
+        {
+            $this->addIteratedValidationRules($attribute.'.'.$i.'.', $ruleSet, $messages);
         }
     }
 
@@ -36,13 +39,14 @@ class ValidationIterator extends Validator {
      *
      * @return void
      */
-    protected function addArrayValidationRules($attribute, $ruleSet = [], $messages = [])
+    protected function addIteratedValidationRules($attribute, $ruleSet = [], $messages = [])
     {
         foreach ($ruleSet as $field => $rules)
         {
             $rules = str_replace('required_with_parent', rtrim('required_with:'.$attribute, '.'), $rules);
             $rules = is_string($rules) ? explode('|', $rules) : $rules;
 
+            //If it contains nested iterated items, recursively validate them too
             if(isset($rules['iterate']))
             {
                 $rules = $this->iterateNestedRuleSet($attribute.$field, $rules);
@@ -50,7 +54,8 @@ class ValidationIterator extends Validator {
 
             $this->mergeRules($attribute.$field, $rules);
         }
-        $this->addArrayValidationMessages($attribute, $messages);
+
+        $this->addIteratedValidationMessages($attribute, $messages);
     }
 
     /**
@@ -61,13 +66,14 @@ class ValidationIterator extends Validator {
      *
      * @return void
      */
-    protected function addArrayValidationMessages($attribute, $messages = [])
+    protected function addIteratedValidationMessages($attribute, $messages = [])
     {
         foreach ($messages as $field => $message)
         {
             $field_name = $attribute.$field;
             $messages[$field_name] = $message;
         }
+
         $this->setCustomMessages($messages);
     }
 
