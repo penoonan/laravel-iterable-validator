@@ -43,7 +43,28 @@ You want the author and title to be required for each book, as well as the custo
     }
 ```
 
-To register this as the default validator on your application, put this code snippet any place where the app bootstraps. With the new file structure, I'm not sure where exactly those places would be, though `routes.php` will always be fine. For a 4.2 app, I put mine in `app/start/global.php`;
+You can also "nest" iterable fields inside the books field. Say you wanted to validate "citations" for each book, and each citation has an "author" field  which is required. The rules for citations must be in the form of an array, and the iterable rules and messages that apply to each individual citation must be under the key 'iterate', like so:
+
+```php
+    <?php
+    $bookRules = [
+        'title' => 'required',
+        'author' => 'required',
+        'citations' => [
+            'array', // assuming we always want the citations to come through as an array
+            'iterate' => [
+                'ruleSet' => [
+                    'author' => 'required'
+                ],
+                'messages' => [
+                    'author.required' => 'What is the citation author\'s name? Geez!'
+                ]
+            ]
+        ]
+    ];
+```
+
+To register this class as the default validator on your application, put this code snippet any place where the app bootstraps. With the new file structure, I'm not sure where exactly those places would be, though `routes.php` will always be fine. For a 4.2 app, I put mine in `app/start/global.php`;
 
 ```php
     <?php
