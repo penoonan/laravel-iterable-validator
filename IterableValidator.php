@@ -46,7 +46,7 @@ class ValidationIterator extends Validator {
             $rules = str_replace('required_with_parent', rtrim('required_with:'.$attribute, '.'), $rules);
             $rules = is_string($rules) ? explode('|', $rules) : $rules;
 
-            //If it contains nested iterated items, recursively validate them too
+            //If it contains nested iterated items, recursively add validation rules for them too
             if(isset($rules['iterate']))
             {
                 $rules = $this->iterateNestedRuleSet($attribute.$field, $rules);
