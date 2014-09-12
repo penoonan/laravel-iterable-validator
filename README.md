@@ -34,7 +34,7 @@ You want the author and title to be required for each book, as well as the custo
     ];
 
     $validator = Validator::make($input, $rules);
-    $validator->iterates('books', $bookRules, $bookMessages);
+    $validator->iterate('books', $bookRules, $bookMessages);
 
     if ($validator->passes()) {
         //do your thing
