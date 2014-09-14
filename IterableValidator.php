@@ -49,7 +49,8 @@ class ValidationIterator extends Validator {
             //If it contains nested iterated items, recursively add validation rules for them too
             if(isset($rules['iterate']))
             {
-                $rules = $this->iterateNestedRuleSet($attribute.$field, $rules);
+                $this->iterateNestedRuleSet($attribute.$field, $rules);
+                unset($rules['iterate']);
             }
 
             $this->mergeRules($attribute.$field, $rules);
@@ -81,7 +82,7 @@ class ValidationIterator extends Validator {
      * @param $attribute
      * @param $rules
      *
-     * @return array
+     * @return void
      */
     protected function iterateNestedRuleSet($attribute, $rules)
     {
@@ -89,8 +90,6 @@ class ValidationIterator extends Validator {
         $nestedMessages = isset($rules['iterate']['messages']) ? $rules['iterate']['messages'] : [];
 
         $this->iterate($attribute, $nestedRuleSet, $nestedMessages);
-
-        return array_except($rules, 'iterate');
     }
 
 }
