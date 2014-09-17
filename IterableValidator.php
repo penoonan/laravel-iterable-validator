@@ -43,7 +43,7 @@ class ValidationIterator extends Validator {
     {
         foreach ($ruleSet as $field => $rules)
         {
-            $rules = str_replace('required_with_parent', rtrim('required_with:'.$attribute, '.'), $rules);
+			$rules = str_replace('{parent}', rtrim($attribute, '.'), $rules);
             $rules = is_string($rules) ? explode('|', $rules) : $rules;
 
             //If it contains nested iterated items, recursively add validation rules for them too
