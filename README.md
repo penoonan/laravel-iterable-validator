@@ -1,6 +1,8 @@
 Laravel Iterable Validator
 ==========================
 
+#####This has not been tested with Laravel 5.*
+
 This adds an "iterate" method to Laravel's default validator. Say you're expecting input with an array of books:
 
 ```php
